@@ -1,7 +1,6 @@
 import os
 import random
 import string
-import subprocess
 import pytest
 from checkout import checkout_positive
 import yaml
@@ -27,7 +26,8 @@ def clear_folders():
 @pytest.fixture()
 def make_files():
     list_off_files = []
-    for i in range(5):
+
+    for i in range(data['count']):
         filename = ''.join(
             random.choices(string.ascii_uppercase + string.digits, k=5))
         if checkout_positive(
@@ -52,3 +52,12 @@ def make_subfolder():
         return subfoldername, None
     else:
         return subfoldername, testfilename
+
+@pytest.fixture()
+def make_bad_arx(make_folders, clear_folders, make_files):
+    checkout_positive(
+        f"cd {data['folder_in']}; 7z a {data['folder_badarx']}/badarx1.7z",
+        "Everything is Ok"), "Test1 Fail"
+    return checkout_positive(
+        f"cd truncate -s 1 {data['folder_badarx']}/badarx1.7z",
+        ""), "Test1 Fail"
