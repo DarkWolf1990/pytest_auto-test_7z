@@ -1,0 +1,9 @@
+
+folder_tst: /Users/darkwolf/Desktop/tst
+folder_in: /Users/darkwolf/Desktop/tst/file
+folder_out: /Users/darkwolf/Desktop/tst/out
+folder_ext: /Users/darkwolf/Desktop/tst/ext
+folder_ext2: /Users/darkwolf/Desktop/tst/ext2
+folder_badarx: /Users/darkwolf/Desktop/tst/badarx
+folder_out_negative: /Users/darkwolf/Desktop/tst/badarx
+count: 5

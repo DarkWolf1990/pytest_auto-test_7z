@@ -1,25 +1,26 @@
+import os
 import random
 import string
 import subprocess
 import pytest
 from checkout import checkout_positive
+import yaml
 
-folder_in = "/Users/darkwolf/Desktop/tst/file"
-folder_out = "/Users/darkwolf/Desktop/tst/out"
-folder_ext = "/Users/darkwolf/Desktop/tst/ext"
-folder_badarx = "/Users/darkwolf/Desktop/tst/badarx"
+with open(os.path.join(os.path.dirname(__file__), "config.yaml")) as f:
+    data = yaml.safe_load(f)
 
 
 @pytest.fixture()
 def make_folders():
     return checkout_positive(
-        f"mkdir {folder_in} {folder_out} {folder_ext} {folder_badarx}", "")
+        f"mkdir {data['folder_in']} {data['folder_out']} {data['folder_ext']} {data['folder_badarx']} {data['folder_ext2']}",
+        "")
 
 
 @pytest.fixture()
 def clear_folders():
     return checkout_positive(
-        f"rm -rf {folder_in}/* {folder_out}/* {folder_ext}/* {folder_badarx}/*",
+        f"rm -rf {data['folder_in']}/* {data['folder_out']}/* {data['folder_ext']}/* {data['folder_badarx']}/*  {data['folder_ext2']}/*",
         "")
 
 
@@ -30,7 +31,7 @@ def make_files():
         filename = ''.join(
             random.choices(string.ascii_uppercase + string.digits, k=5))
         if checkout_positive(
-                f"cd {folder_in}; dd if=/dev/urandom of={filename} bs=1M count=1 iflag=fullblock",
+                f"cd {data['folder_in']}; dd if=/dev/urandom of={filename} bs=1M count=1 iflag=fullblock",
                 ""):
             list_off_files.append(filename)
     return list_off_files
@@ -43,10 +44,10 @@ def make_subfolder():
     subfoldername = ''.join(
         random.choices(string.ascii_uppercase + string.digits, k=5))
     if not checkout_positive(
-            f"cd {folder_in}; mkdir {subfoldername}", ""):
+            f"cd {data['folder_in']}; mkdir {subfoldername}", ""):
         return None, None
     if not checkout_positive(
-            f"cd {folder_in}/{subfoldername}; dd if=/dev/urandom of={testfilename} bs=1M count=1 iflag=fullblock"
+            f"cd {data['folder_in']}/{subfoldername}; dd if=/dev/urandom of={testfilename} bs=1M count=1 iflag=fullblock"
             , ""):
         return subfoldername, None
     else:
