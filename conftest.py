@@ -13,13 +13,13 @@ folder_badarx = "/Users/darkwolf/Desktop/tst/badarx"
 @pytest.fixture()
 def make_folders():
     return checkout_positive(
-        f"mkdir {folder_in}, {folder_out}, {folder_ext},{folder_badarx}", "")
+        f"mkdir {folder_in} {folder_out} {folder_ext} {folder_badarx}", "")
 
 
 @pytest.fixture()
 def clear_folders():
     return checkout_positive(
-        f"rm -rf {folder_in}/*, {folder_out}/*, {folder_ext}/*,{folder_badarx}/*",
+        f"rm -rf {folder_in}/* {folder_out}/* {folder_ext}/* {folder_badarx}/*",
         "")
 
 
