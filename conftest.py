@@ -1,3 +1,5 @@
+import subprocess
+from datetime import datetime
 import os
 import random
 import string
@@ -53,6 +55,7 @@ def make_subfolder():
     else:
         return subfoldername, testfilename
 
+
 @pytest.fixture()
 def make_bad_arx(make_folders, clear_folders, make_files):
     checkout_positive(
@@ -61,3 +64,17 @@ def make_bad_arx(make_folders, clear_folders, make_files):
     return checkout_positive(
         f"cd truncate -s 1 {data['folder_badarx']}/badarx1.7z",
         ""), "Test1 Fail"
+
+
+@pytest.fixture()
+def start_time():
+    return datetime.now().strftime("%Y-%m %d %H:%M:%S")
+
+
+@pytest.fixture()
+def save_log(start_time, name=data['path_journal']):
+    with open(os.path.join(os.path.dirname(__file__), name), "w") as f:
+        f.write(
+            subprocess.run(f"sudo journalctl -s -u {start_time}", shell=True,
+                           stdout=subprocess.PIPE,
+                           stderr=subprocess.PIPE, encoding="utf-8").stdout)

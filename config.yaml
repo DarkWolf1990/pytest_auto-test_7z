@@ -7,7 +7,7 @@ folder_ext2: /Users/darkwolf/Desktop/tst/ext2
 folder_badarx: /Users/darkwolf/Desktop/tst/badarx
 folder_out_negative: /Users/darkwolf/Desktop/tst/badarx
 count: 5
-
+path_journal: /Users/darkwolf/Desktop/tst/journal.txt
 host: 0.0.0.0
 user: user2
 passwd: 11
