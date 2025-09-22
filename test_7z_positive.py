@@ -17,7 +17,7 @@ def test_step0():
     res.append(ssh_checkout(data['host'], data['user'], data['passwd'],
                                 f"echo {data['passwd']} | sudo sudo -S dpkg -s {data['pkgename']}",
                                 "Status: install ok installed"))
-    return all(res)
+    assert all(res)
 
 
 
