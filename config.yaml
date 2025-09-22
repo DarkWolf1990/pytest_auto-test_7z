@@ -7,3 +7,13 @@ folder_ext2: /Users/darkwolf/Desktop/tst/ext2
 folder_badarx: /Users/darkwolf/Desktop/tst/badarx
 folder_out_negative: /Users/darkwolf/Desktop/tst/badarx
 count: 5
+
+host: 0.0.0.0
+user: user2
+passwd: 11
+local_path: /tests/p7zip-full.deb
+remote_path: /home/user2/p7zip-full.deb
+port: 22
+pkgename:  p7zip-full
+
+

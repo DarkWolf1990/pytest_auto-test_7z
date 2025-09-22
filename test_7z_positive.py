@@ -1,9 +1,25 @@
 import os
-from checkout import checkout_positive
+from checkout import checkout_positive, ssh_checkout
 import yaml
+
+from load_file import upload_files
 
 with open(os.path.join(os.path.dirname(__file__), "config.yaml")) as f:
     data = yaml.safe_load(f)
+
+
+def test_step0():
+    res = []
+    upload_files(data['host'], data['user'], data['passwd'], data['local_path'], data['remote_path'])
+    res.append(ssh_checkout(data['host'], data['user'], data['passwd'],
+                                f"echo {data['passwd']} | sudo -S dpgk -i {data['remote_path']}",
+                                "Настраивается пакет"))
+    res.append(ssh_checkout(data['host'], data['user'], data['passwd'],
+                                f"echo {data['passwd']} | sudo sudo -S dpkg -s {data['pkgename']}",
+                                "Status: install ok installed"))
+    return all(res)
+
+
 
 
 def test_step1(make_folders, clear_folders, make_files):
